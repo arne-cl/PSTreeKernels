@@ -29,3 +29,7 @@ docs/_build
 include
 lib
 local
+
+# repo specific ignores
+question_classification_test_sents.txt
+question_classification_train_sents.txt
