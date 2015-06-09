@@ -141,67 +141,67 @@ class PSTree:
             print(prefix + '\t Position ' + str(i) + ':')
             for key in node.posVector[i]:
                 self.printPSTNode(node.posVector[i][key], tabulation+1)
-   
-        
-            
-#Extract labels from sentences of the training set:
-rawData_train = RawData('question_classification_train.txt', 'question_classification_train_sents.txt')
 
-#Get linear trees from stanford parser training file:
-linearTrees_train = Utilities.getLinearTrees('question_classification_train_sents_parsed.txt')
 
-#Add all training ST's to PST:
-pst = PSTree()
-M = {}
-currIndex = 0
-for i in range(0, len(linearTrees_train)):
-    tree = Tree(linearTrees_train[i])
-    visitedLabels = {}
-    pile = [tree.root]
-    initialIndex = currIndex
-    maxIndex = -1
-    while len(pile)>0:
-        node = pile[0]
-        pile.remove(node)
-        if node.value in visitedLabels.keys():
-            shift = visitedLabels[node.value]
-            pst.addTreeToPST(node, currIndex + shift)
-            visitedLabels[node.value] += 1
-        else:
-            pst.addTreeToPST(node, currIndex)
-            visitedLabels[node.value] = 1
-        if visitedLabels[node.value]>maxIndex:
-            maxIndex = visitedLabels[node.value]
-        if len(node.children[0].children)>0:
-            pile.extend(node.children)
-    
-    for j in range(currIndex, currIndex + maxIndex):
-        M[j] = i
-    currIndex += maxIndex
+if __name__ == '__main__':
+    #Extract labels from sentences of the training set:
+    rawData_train = RawData('question_classification_train.txt', 'question_classification_train_sents.txt')
 
-#Extract labels from sentences of the test set:
-rawData_test = RawData('question_classification_test.txt', 'question_classification_test_sents.txt')
+    #Get linear trees from stanford parser training file:
+    linearTrees_train = Utilities.getLinearTrees('question_classification_train_sents_parsed.txt')
 
-#Get linear trees from stanford parser test file:
-linearTrees_test = Utilities.getLinearTrees('question_classification_test_sents_parsed.txt')
-
-#Classify test sentences:
-for string in linearTrees_test:
-    K = {}
-    tree = Tree(string)
-    
-    pile = [tree.root]
-    while len(pile)>0:
-        node = pile[0]
-        pile.remove(node)
-        if len(node.children[0].children)>0:
-            pile.extend(node.children)
-           
-        matchData = MFTK(node, pst, 1, 0)
-        nodeScores = matchData.scores
-        for match in nodeScores[node].keys():
-            eqID = M[match]
-            if eqID in K.keys():
-                K[eqID] += nodeScores[node][match]
+    #Add all training ST's to PST:
+    pst = PSTree()
+    M = {}
+    currIndex = 0
+    for i in range(0, len(linearTrees_train)):
+        tree = Tree(linearTrees_train[i])
+        visitedLabels = {}
+        pile = [tree.root]
+        initialIndex = currIndex
+        maxIndex = -1
+        while len(pile)>0:
+            node = pile[0]
+            pile.remove(node)
+            if node.value in visitedLabels.keys():
+                shift = visitedLabels[node.value]
+                pst.addTreeToPST(node, currIndex + shift)
+                visitedLabels[node.value] += 1
             else:
-                K[eqID] = nodeScores[node][match]
+                pst.addTreeToPST(node, currIndex)
+                visitedLabels[node.value] = 1
+            if visitedLabels[node.value]>maxIndex:
+                maxIndex = visitedLabels[node.value]
+            if len(node.children[0].children)>0:
+                pile.extend(node.children)
+        
+        for j in range(currIndex, currIndex + maxIndex):
+            M[j] = i
+        currIndex += maxIndex
+
+    #Extract labels from sentences of the test set:
+    rawData_test = RawData('question_classification_test.txt', 'question_classification_test_sents.txt')
+
+    #Get linear trees from stanford parser test file:
+    linearTrees_test = Utilities.getLinearTrees('question_classification_test_sents_parsed.txt')
+
+    #Classify test sentences:
+    for string in linearTrees_test:
+        K = {}
+        tree = Tree(string)
+        
+        pile = [tree.root]
+        while len(pile)>0:
+            node = pile[0]
+            pile.remove(node)
+            if len(node.children[0].children)>0:
+                pile.extend(node.children)
+               
+            matchData = MFTK(node, pst, 1, 0)
+            nodeScores = matchData.scores
+            for match in nodeScores[node].keys():
+                eqID = M[match]
+                if eqID in K.keys():
+                    K[eqID] += nodeScores[node][match]
+                else:
+                    K[eqID] = nodeScores[node][match]
