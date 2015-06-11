@@ -1,18 +1,34 @@
 
 class TreeNode:
-    '''Class responsible for holding a generic Tree node'''
+    '''
+    Class responsible for holding a generic Tree node
+
+    Attributes
+    ==========
+    value : str
+        the ID of the node, e.g. a syntactical category like 'NP' or 'VB'
+    parent : TreeNode or None
+        a tree node that represents the parent of this one. If this node
+        is the root node, its parent attribute is None.
+        TODO: it is initialised as ''. does it ever keep that value?
+    children: list of TreeNode
+        a list of ``TreeNode``s which represent the children of this node
+    '''
     def __init__(self):
         self.value = ''
         self.parent = ''
         self.children = []
     
     def setValue(self, v):
+        '''set the ID (str) of this node, e.g. "NP"'''
         self.value = v
     
     def setParent(self, tn):
+        '''set the parent node (TreeNode) of this node'''
         self.parent = tn
         
     def addChild(self, c):
+        '''add a child (TreeNode) to the list of children of this node'''
         self.children.append(c)
 
 
