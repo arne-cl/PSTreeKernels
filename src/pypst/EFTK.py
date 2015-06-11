@@ -1,4 +1,5 @@
 
+from pkg_resources import resource_filename
 from tree import Tree, TreeNode, AAKNode, Utilities
 
 
@@ -108,12 +109,14 @@ class PSTree:
                 self.printPSTNode(node.posVector[i][key], tabulation+1)
 
 
-if __name__ == '__main__':
+def main():
     #Extract labels from sentences of the training set:
-    rawData_train = RawData('question_classification_train.txt', 'question_classification_train_sents.txt')
+    raw_training_file = resource_filename('pypst', 'data/question_classification_train.txt')
+    rawData_train = RawData(raw_training_file, 'question_classification_train_sents.txt')
 
     #Get linear trees from stanford parser training file:
-    linearTrees_train = Utilities.getLinearTrees('question_classification_train_sents_parsed.txt')
+    parsed_training_file = resource_filename('pypst', 'data/question_classification_train_sents_parsed.txt')
+    linearTrees_train = Utilities.getLinearTrees(parsed_training_file)
 
 
     #Add all training ST's to PST:
@@ -151,10 +154,12 @@ if __name__ == '__main__':
         currIndex += maxIndex
 
     #Extract labels from sentences of the test set:    
-    rawData_test = RawData('question_classification_test.txt', 'question_classification_test_sents.txt')
+    raw_test_file = resource_filename('pypst', 'data/question_classification_test.txt')
+    rawData_test = RawData(raw_test_file, 'question_classification_test_sents.txt')
 
     #Get linear trees from stanford parser test file:
-    linearTrees = Utilities.getLinearTrees('question_classification_test_sents_parsed.txt')
+    parsed_test_file = resource_filename('pypst', 'data/question_classification_test_sents_parsed.txt')
+    linearTrees = Utilities.getLinearTrees(parsed_test_file)
 
     #Classify test sentences:
     for string in linearTrees:
@@ -175,3 +180,7 @@ if __name__ == '__main__':
                     K[eqID] += 1
                 else:
                     K[eqID] = 1
+
+
+if __name__ == '__main__':
+    main()

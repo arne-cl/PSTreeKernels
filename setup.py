@@ -45,8 +45,8 @@ setup(name='pypst',
     package_data= {'pypst': ['data/*.txt']},
     zip_safe=False,
     install_requires=install_requires,
-    #entry_points={
-    #    'console_scripts':
-    #        ['discoursegraphs=discoursegraphs.merging:merging_cli']
-    #}
+    entry_points={
+        'console_scripts':
+            ['EFTK=pypst.EFTK:main', 'MFTK=pypst.MFTK:main']
+    }
 )
