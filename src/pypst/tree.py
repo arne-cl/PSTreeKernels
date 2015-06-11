@@ -77,37 +77,7 @@ class Tree:
         print(prefix+node.value)
         for child in node.children:
             self.printNode(child, tabulation+1)
-                
-    def printTreeWithAAKData(self, pstdata):
-        self.printNodeWithAAKData(self.root, 0, pstdata)
-        
-    def printNodeWithAAKData(self, node, tabulation, pstdata):
-        prefix = ''
-        for i in range(0, tabulation):
-            prefix = prefix + '\t'
-        print(prefix+node.value)
-        if node in pstdata.link:
-            PSTNode = pstdata.link[node]
-            for rule in PSTNode.ruleList:
-                print(prefix+rule)
-        for child in node.children:
-            self.printNodeWithAAKData(child, tabulation+1, pstdata)
-            
-    def saveTreeWithAAKData(self, pstdata, file):
-        self.saveNodeWithAAKData(self.root, 0, pstdata, file)
-        
-    def saveNodeWithAAKData(self, node, tabulation, pstdata, file):
-        prefix = ''
-        for i in range(0, tabulation):
-            prefix = prefix + '\t'
-        file.write(prefix+node.value+'\n')
-        if node in pstdata.link:
-            PSTNode = pstdata.link[node]
-            for rule in PSTNode.ruleList:
-                file.write(prefix+rule+'\n')
-        for child in node.children:
-            self.saveNodeWithAAKData(child, tabulation+1, pstdata, file)
-        
+
     def createTreeFromString(self, treeString):
         auxC = 1
         value = ''
