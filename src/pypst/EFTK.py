@@ -1,6 +1,7 @@
 
 from pkg_resources import resource_filename
 from tree import Tree, TreeNode, AAKNode, Utilities
+from preprocess import RawData
 
 
 class EFTK:
@@ -25,25 +26,6 @@ class EFTK:
                             self.matchChildren(child.children, pstnode.posVector[i][child.value])
                     else:
                         self.matches = set([])
-
-class RawData:
-    
-    def __init__(self, inPath, outPath):
-        self.labels = []
-
-        inTrain = open(inPath, 'r')
-        outTrain = open(outPath, 'w')
-        for line in inTrain:
-            data = line.split()
-            self.labels.append(data[0].strip()[0:data[0].strip().find(':')])
-            sentence = ''
-            for i in range(1, len(data)):
-                sentence += data[i] + ' '
-            sentence = sentence.strip()
-            outTrain.write(sentence + '\n')
-            
-        inTrain.close()
-        outTrain.close()
 
 
 class PSTree:
@@ -112,7 +94,7 @@ class PSTree:
 def main():
     #Extract labels from sentences of the training set:
     raw_training_file = resource_filename('pypst', 'data/question_classification_train.txt')
-    rawData_train = RawData(raw_training_file, 'question_classification_train_sents.txt')
+    rawData_train = RawData(raw_training_file, 'question_classification_train_sents.txt', fine_grained=False)
 
     #Get linear trees from stanford parser training file:
     parsed_training_file = resource_filename('pypst', 'data/question_classification_train_sents_parsed.txt')
@@ -155,7 +137,7 @@ def main():
 
     #Extract labels from sentences of the test set:    
     raw_test_file = resource_filename('pypst', 'data/question_classification_test.txt')
-    rawData_test = RawData(raw_test_file, 'question_classification_test_sents.txt')
+    rawData_test = RawData(raw_test_file, 'question_classification_test_sents.txt', fine_grained=False)
 
     #Get linear trees from stanford parser test file:
     parsed_test_file = resource_filename('pypst', 'data/question_classification_test_sents_parsed.txt')
