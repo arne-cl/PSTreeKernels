@@ -1,3 +1,7 @@
+
+from tree import Tree, TreeNode, AAKNode
+
+
 class PSTree:
     def __init__(self, normalize=True):
         self.normalized = normalize
