@@ -75,10 +75,10 @@ def main():
 
     #Get linear trees from stanford parser test file:
     parsed_test_file = resource_filename('pypst', 'data/question_classification_test_sents_parsed.txt')
-    linearTrees = Utilities.getLinearTrees(parsed_test_file)
+    linearTrees_test = Utilities.getLinearTrees(parsed_test_file)
 
     #Classify test sentences:
-    for string in linearTrees:
+    for string in linearTrees_test:
         K = {}
         tree = Tree(string)
         
