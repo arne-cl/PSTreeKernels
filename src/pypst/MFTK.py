@@ -144,6 +144,7 @@ def main():
         pile = [tree.root]
         initialIndex = currIndex
         maxIndex = -1
+
         while len(pile)>0:
             node = pile[0]
             pile.remove(node)
@@ -158,7 +159,7 @@ def main():
                 maxIndex = visitedLabels[node.value]
             if len(node.children[0].children)>0:
                 pile.extend(node.children)
-        
+
         for j in range(currIndex, currIndex + maxIndex):
             M[j] = i
         currIndex += maxIndex

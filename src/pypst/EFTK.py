@@ -100,12 +100,7 @@ def main():
     parsed_training_file = resource_filename('pypst', 'data/question_classification_train_sents_parsed.txt')
     linearTrees_train = Utilities.getLinearTrees(parsed_training_file)
 
-
     #Add all training ST's to PST:
-    nodecount = []
-    nodemeans = []
-    nodemean = 0
-
     pst = PSTree()
     M = {}
     currIndex = 0
