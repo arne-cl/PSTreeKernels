@@ -122,7 +122,26 @@ class Tree:
 
 
 class AAKNode:
-    '''Holds the information of an Agile Adaptive Knowledge Tree's node'''
+    '''
+    Holds the information of an Agile Adaptive Knowledge Tree's node.
+    
+    Attributes
+    ----------
+    value : str
+        the ID of the node, e.g. a syntacticategory like 'NP' or 'None'
+        TODO: why is None used as a str and not a bool?
+    parent : AAKNode or str
+        the AAKNode that is the parent of this one or 'None', if this
+        node is root node
+        TODO: why is None used as a str and not a bool?
+        TODO: what kind of root node is an AAKNode without a parent?
+    ruleList : set of int
+        TODO: what is this set of integers used for?
+    posVector: list
+        TODO
+    alignments : dict
+        TODO
+    '''
     def __init__(self):
         self.value = ''
         self.parent = ''
@@ -131,12 +150,18 @@ class AAKNode:
         self.alignments = {}
         
     def setParent(self, p):
+        '''set parent node (AAKNode) of this node'''
         self.parent = p
         
     def setValue(self, v):
+        '''set ID (str, e.g. 'NP') of this node or "None"'''
         self.value = v
         
     def addRule(self, r):
+        '''
+        add rule (int) to this node
+        TODO: what are the rules used for?
+        '''
         self.ruleList.add(r)
 
 
