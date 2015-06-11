@@ -1,5 +1,6 @@
-#Class responsible for holding a generic Tree node
+
 class TreeNode:
+    '''Class responsible for holding a generic Tree node'''
     def __init__(self):
         self.value = ''
         self.parent = ''
@@ -15,8 +16,8 @@ class TreeNode:
         self.children.append(c)
 
 
-#Class responsible for holding a generic Tree
 class Tree:
+    '''Class responsible for holding a generic Tree'''
     def __init__(self, treeString=None):
         if treeString == None:
             self.root = None
@@ -108,8 +109,8 @@ class Tree:
             return result
 
 
-#Holds the information of an Agile Adaptive Knowledge Tree's node
 class AAKNode:
+    '''Holds the information of an Agile Adaptive Knowledge Tree's node'''
     def __init__(self):
         self.value = ''
         self.parent = ''
