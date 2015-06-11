@@ -4,7 +4,7 @@ class TreeNode:
     Class responsible for holding a generic Tree node
 
     Attributes
-    ==========
+    ----------
     value : str
         the ID of the node, e.g. a syntactical category like 'NP' or 'VB'
     parent : TreeNode or None
@@ -33,8 +33,23 @@ class TreeNode:
 
 
 class Tree:
-    '''Class responsible for holding a generic Tree'''
+    '''
+    Class responsible for holding a generic Tree
+
+    Attributes
+    ----------
+    root : TreeNode or None
+        holds the root node of the tree or None, if the tree doesn't have
+        any nodes
+    '''
     def __init__(self, treeString=None):
+        '''
+        Parameters
+        ----------
+        treeString : str or None
+            If present, the tree will be created from a parse tree string.
+            Otherwise, an empty tree will be created.
+        '''
         if treeString == None:
             self.root = None
         else:
@@ -42,9 +57,20 @@ class Tree:
             self.root.setParent(None)
         
     def printTree(self):
+        '''print the complete tree'''
         self.printNode(self.root, 0)
         
     def printNode(self, node, tabulation):
+        '''
+        prints a subtree, i.e. a tree node and all its descendants
+
+        Parameters
+        ----------
+        node : TreeNode
+            the root node of the subtree to be printed
+        tabulation : int
+            indent the subtree with n tabs
+        '''
         prefix = ''
         for i in range(0, tabulation):
             prefix = prefix + '\t'
