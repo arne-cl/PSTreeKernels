@@ -18,15 +18,15 @@ class TreeNode:
         self.value = ''
         self.parent = ''
         self.children = []
-    
+
     def setValue(self, v):
         '''set the ID (str) of this node, e.g. "NP"'''
         self.value = v
-    
+
     def setParent(self, tn):
         '''set the parent node (TreeNode) of this node'''
         self.parent = tn
-        
+
     def addChild(self, c):
         '''add a child (TreeNode) to the list of children of this node'''
         self.children.append(c)
@@ -55,11 +55,11 @@ class Tree:
         else:
             self.root = self.createTreeFromString(treeString)
             self.root.setParent(None)
-        
+
     def printTree(self):
         '''print the complete tree'''
         self.printNode(self.root, 0)
-        
+
     def printNode(self, node, tabulation):
         '''
         prints a subtree, i.e. a tree node and all its descendants
@@ -85,7 +85,7 @@ class Tree:
             value = value+treeString[auxC]
             auxC = auxC+1
         value = value.strip()
-        
+
         if not treeString[auxC+1]=='(':
             auxC = auxC+1
             child = ''
@@ -122,14 +122,13 @@ class Tree:
 
 
 class Utilities:
-    
     @staticmethod
     def getLinearTrees(inPath):
         result = []
-        
+
         tree = ''
         f1 = open(inPath, 'r')
-        for line in f1: 
+        for line in f1:
             if line.strip()=='':
                 tree = tree.replace(') (', ')(')
                 if not tree.strip()=='':
@@ -138,8 +137,7 @@ class Utilities:
                 tree = ''
             else:
                 if not line.strip()=='(ROOT':
-                    tree = tree + line.strip() + ' ' 
-        
+                    tree = tree + line.strip() + ' '
+
         f1.close()
-        
         return result

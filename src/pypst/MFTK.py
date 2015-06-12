@@ -8,11 +8,11 @@ from tree import Tree, TreeNode, Utilities
 
 
 class MFTK:
-    
+
     def __init__(self, node, pst, lambdaV, miV):
         self.scores = {}
         self.matchNode(node, pst.root.posVector[0], lambdaV, miV)
-        
+
     def matchNode(self, node, dict, lambdaV, miV):
         if node.value in dict.keys():
             self.scores[node] = {}
@@ -44,7 +44,7 @@ class MFTK:
 def main():
     pst, M = train_question_classification(fine_grained_labels=True, normalized_pst=True)
 
-    #Extract labels from sentences of the test set:    
+    #Extract labels from sentences of the test set:
     raw_test_file = resource_filename('pypst', 'data/question_classification_test.txt')
     rawData_test = RawData(raw_test_file, 'question_classification_test_sents.txt', fine_grained=True)
 
@@ -56,14 +56,14 @@ def main():
     for string in linearTrees_test:
         K = {}
         tree = Tree(string)
-        
+
         pile = [tree.root]
         while len(pile)>0:
             node = pile[0]
             pile.remove(node)
             if len(node.children[0].children)>0:
                 pile.extend(node.children)
-               
+
             matchData = MFTK(node, pst, 1, 0)
             nodeScores = matchData.scores
             for match in nodeScores[node].keys():

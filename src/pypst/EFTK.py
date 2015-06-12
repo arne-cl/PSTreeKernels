@@ -8,7 +8,7 @@ from tree import Tree, TreeNode, Utilities
 
 
 class EFTK:
-    
+
     def __init__(self, node, pst):
         self.matches = set([])
         if node.value in pst.root.posVector[0].keys():
@@ -34,7 +34,7 @@ class EFTK:
 def main():
     pst, M = train_question_classification(fine_grained_labels=False, normalized_pst=False)
 
-    #Extract labels from sentences of the test set:    
+    #Extract labels from sentences of the test set:
     raw_test_file = resource_filename('pypst', 'data/question_classification_test.txt')
     rawData_test = RawData(raw_test_file, 'question_classification_test_sents.txt', fine_grained=False)
 
@@ -46,14 +46,14 @@ def main():
     for string in linearTrees_test:
         K = {}
         tree = Tree(string)
-        
+
         pile = [tree.root]
         while len(pile)>0:
             node = pile[0]
             pile.remove(node)
             if len(node.children[0].children)>0:
                 pile.extend(node.children)
-               
+
             matches = EFTK(node, pst).matches
             for match in matches:
                 eqID = M[match]

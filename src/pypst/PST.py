@@ -7,17 +7,17 @@ class PSTree:
         self.normalized = normalize
         if self.normalized:
             self.normValues = {}
-        
+
         self.root = AAKNode()
         self.root.setValue('None')
         self.root.setParent('None')
         self.root.posVector.append({})
-        
+
         self.prevAmount = 0;
         self.currAmount = 0;
         self.totalAmount = 0;
         self.savedAmount = 0;
-    
+
     def addTreeToPST(self, tree, id):
         if isinstance(tree, Tree):
             self.prevAmount = self.currAmount
@@ -29,7 +29,7 @@ class PSTree:
             if self.normalized and tree.parent==None:
                 self.normValues[id] = self.getNormalization(tree)
             self.addNodeToPST(tree, id, self.root.posVector[0], self.root)
-        
+
     def getNormalization(self, root):
         result = 0
         pile = [root]
@@ -39,7 +39,7 @@ class PSTree:
             pile.extend(aux.children)
             result += self.getNormalizationValue(aux)
         return result
-        
+
     def getNormalizationValue(self, node):
         if len(node.children)==0:
             return 1
@@ -48,7 +48,7 @@ class PSTree:
             for child in node.children:
                 result *= 1+self.getNormalizationValue(child)
             return result
-      
+
     def addNodeToPST(self, node, id, dict, parent):
         self.totalAmount += 1
         if node.value in dict.keys():
@@ -72,15 +72,15 @@ class PSTree:
                     if len(PSTNode.posVector)==i:
                         PSTNode.posVector.append({})
                     self.addNodeToPST(node.children[i], id, PSTNode.posVector[i], PSTNode)
-                    
+
     def printPSTree(self):
         self.printPSTNode(self.root, 0)
-        
+
     def printPSTNode(self, node, tabulation):
         prefix = ''
         for i in range(0, tabulation):
             prefix = prefix + '\t'
-            
+
         print(prefix + 'Value: ' + node.value)
         print(prefix + 'Rules:')
         for rule in node.ruleList:

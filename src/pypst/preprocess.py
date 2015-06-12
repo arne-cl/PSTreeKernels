@@ -18,6 +18,6 @@ class RawData:
                 sentence += data[i] + ' '
             sentence = sentence.strip()
             outTrain.write(sentence + '\n')
-            
+
         inTrain.close()
         outTrain.close()
