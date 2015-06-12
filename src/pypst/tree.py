@@ -124,6 +124,10 @@ class Tree:
 class Utilities:
     @staticmethod
     def getLinearTrees(inPath):
+        '''
+        reads a file containing constituency parse trees and returns
+        a list of strings, each representing a constituency parse tree.
+        '''
         result = []
 
         tree = ''
