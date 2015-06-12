@@ -1,5 +1,5 @@
 
-from tree import Tree, TreeNode, AAKNode
+from tree import Tree, TreeNode
 
 
 class PSTree:
@@ -90,3 +90,57 @@ class PSTree:
             print(prefix + '\t Position ' + str(i) + ':')
             for key in node.posVector[i]:
                 self.printPSTNode(node.posVector[i][key], tabulation+1)
+
+
+class AAKNode:
+    '''
+    Holds the information of an Agile Adaptive Knowledge Tree's node.
+
+    Attributes
+    ----------
+    value : str
+        the ID of the node, e.g. a syntacticategory like 'NP' or 'None'
+        TODO: why is None used as a str and not a bool?
+    parent : AAKNode or str
+        the AAKNode that is the parent of this one or 'None', if this
+        node is root node
+        TODO: why is None used as a str and not a bool?
+        TODO: what kind of root node is an AAKNode without a parent?
+
+            >>> an = pst.root
+            >>> dtan = an.posVector[0]['DT']
+            >>> dtan.parent
+            <PST.AAKNode instance at 0x7fa3a531ebd8>
+            >>> dtan.parent.value
+            'None'
+
+    ruleList : set of int
+        TODO: what is this set of integers used for?
+    posVector: list of dict
+        the list contains one dict, which maps a node IDs (str) to an
+        AAKNode
+        TODO: why has this list only one element, which is a dict?
+    alignments : dict
+        TODO
+    '''
+    def __init__(self):
+        self.value = ''
+        self.parent = ''
+        self.ruleList = set([])
+        self.posVector = []
+        self.alignments = {}
+
+    def setParent(self, p):
+        '''set parent node (AAKNode) of this node'''
+        self.parent = p
+
+    def setValue(self, v):
+        '''set ID (str, e.g. 'NP') of this node or "None"'''
+        self.value = v
+
+    def addRule(self, r):
+        '''
+        add rule (int) to this node
+        TODO: what are the rules used for?
+        '''
+        self.ruleList.add(r)

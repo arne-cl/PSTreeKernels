@@ -2,9 +2,9 @@
 from pkg_resources import resource_filename
 
 from preprocess import RawData
-from PST import PSTree
+from PST import AAKNode, PSTree
 from train import train_question_classification
-from tree import Tree, TreeNode, AAKNode, Utilities
+from tree import Tree, TreeNode, Utilities
 
 
 class EFTK:
