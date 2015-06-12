@@ -3,6 +3,30 @@ from tree import Tree, TreeNode
 
 
 class PSTree:
+    '''
+    Class responsible for holding a Positional Suffix Tree
+
+    Attributes
+    ----------
+    normalized : bool
+        TODO
+    normValues : dict
+        TODO: maps from an int (called 'id' in addTreeToPST) to its normalization
+        value (int)
+        NOTE: this attribute is only present iff self.normalized is True!
+
+    root : AAKNode
+        TODO
+    prevAmount : int
+        TODO
+    currAmount : int
+        TODO seems to count the number of unique node IDs
+    totalAmount : int
+        total amount of nodes added to the tree
+    savedAmount : int
+        TODO seems to count the number of nodes whose ID occurs more than
+             once
+    '''
     def __init__(self, normalize=True):
         self.normalized = normalize
         if self.normalized:
@@ -19,6 +43,18 @@ class PSTree:
         self.savedAmount = 0;
 
     def addTreeToPST(self, tree, id):
+        '''
+        Adds a Tree or TreeNode to the PST. If it is a normalized PST,
+        a normalization value is stored in ``self.normValues`` under the
+        given node index.
+
+        Parameters
+        ----------
+        tree : Tree or TreeNode
+            TODO
+        id : int
+            TODO: the 'current index' of the tree node to be added
+        '''
         if isinstance(tree, Tree):
             self.prevAmount = self.currAmount
             if self.normalized:
@@ -50,23 +86,56 @@ class PSTree:
             return result
 
     def addNodeToPST(self, node, id, dict, parent):
+        '''
+        adds a TreeNode to the PST
+
+        Parameters
+        ----------
+        node : TreeNode
+            TODO
+        id : int
+            TODO
+        dict : dict
+            maps a node ID / category (str) to an AAKNode
+            TODO explain the posVector position (nth child)
+        parent : AAKNode
+            the parent node of the AAKNode corresponding to the given TreeNode
+        '''
         self.totalAmount += 1
+        # we have already processed a node with the same ID / category
         if node.value in dict.keys():
             self.savedAmount += 1
+            # the AAKNode with the same ID / category as the given TreeNode
             PSTNode = dict[node.value]
+            # adds the current node index as a 'rule' to the PST node / AAKNode
             PSTNode.addRule(id)
+
+            # calls this method recursively for all children of this TreeNode.
+            # if necessary, creates a new posVector element for each of the
+            # children
             if len(node.children)>0:
                 for i in range(0, len(node.children)):
                     if len(PSTNode.posVector)==i:
                         PSTNode.posVector.append({})
                     self.addNodeToPST(node.children[i], id, PSTNode.posVector[i], PSTNode)
+
+        # this is the first time we process a node with this ID / category
         else:
             self.currAmount += 1
+            # create a new PST node / AAKNode and initialise it
+            # with ID and current index as rule
+            # TODO add value/parent to AAKNode init?
             PSTNode = AAKNode()
             PSTNode.setValue(node.value)
             PSTNode.setParent(parent)
             PSTNode.addRule(id)
+            # store PST node in dict
             dict[node.value] = PSTNode
+
+            # TODO get rid of duplicated code
+            # calls this method recursively for all children of this TreeNode.
+            # if necessary, creates a new posVector element for each of the
+            # children
             if len(node.children)>0:
                 for i in range(0, len(node.children)):
                     if len(PSTNode.posVector)==i:
