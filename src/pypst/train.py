@@ -55,6 +55,8 @@ def train_question_classification(fine_grained_labels=True, normalized_pst=True)
         # TODO: seems to hold the count of the most used node label
         maxIndex = -1
 
+        # iterate over the root TreeNode of the tree and all its
+        # non-leaf/non-token descendants
         while len(pile)>0:
             node = pile[0]
             pile.remove(node)
