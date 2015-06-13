@@ -186,9 +186,8 @@ class AAKNode:
     ruleList : set of int
         TODO: what is this set of integers used for?
     posVector: list of dict
-        the list contains one dict, which maps a node IDs (str) to an
-        AAKNode
-        TODO: why has this list only one element, which is a dict?
+        TODO: the list contains dictionaries (one for each position in
+              the tree). each dict maps a node label (str) to an AAKNode
     alignments : dict
         TODO
     '''
