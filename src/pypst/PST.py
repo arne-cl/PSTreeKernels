@@ -153,7 +153,7 @@ class PSTree:
         print(prefix + 'Value: ' + node.value)
         print(prefix + 'Rules:')
         for rule in node.ruleList:
-            print(prefix + '\t' + rule)
+            print(prefix + '\t' + str(rule))
         print(prefix + 'Vector Positions:')
         for i in range(0, len(node.posVector)):
             print(prefix + '\t Position ' + str(i) + ':')
