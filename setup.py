@@ -20,7 +20,7 @@ install_requires = [
 ]
 
 
-setup(name='pypst',
+setup(name='PSTreeKernels',
     version=version,
     description="tree kernels (MFTK, EFTK) using Positional Suffix Trees (Paetzold 2015)",
     #long_description=README + '\n\n' + NEWS,
@@ -42,11 +42,11 @@ setup(name='pypst',
     # license='3-Clause BSD License',
     packages=find_packages("src"),
     package_dir = {'': "src"},
-    package_data= {'pypst': ['data/*.txt']},
+    package_data= {'PSTreeKernels': ['data/*.txt']},
     zip_safe=False,
     install_requires=install_requires,
     entry_points={
         'console_scripts':
-            ['EFTK=pypst.EFTK:main', 'MFTK=pypst.MFTK:main']
+            ['EFTK=PSTreeKernels.EFTK:main', 'MFTK=PSTreeKernels.MFTK:main']
     }
 )

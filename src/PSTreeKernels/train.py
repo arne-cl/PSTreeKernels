@@ -32,11 +32,11 @@ def train_question_classification(fine_grained_labels=True, normalized_pst=True)
         sentence it was extracted from
     '''
     #Extract labels from sentences of the training set:
-    raw_training_file = resource_filename('pypst', 'data/question_classification_train.txt')
+    raw_training_file = resource_filename('PSTreeKernels', 'data/question_classification_train.txt')
     rawData_train = RawData(raw_training_file, 'question_classification_train_sents.txt', fine_grained=fine_grained_labels)
 
     #Get linear trees from stanford parser training file:
-    parsed_training_file = resource_filename('pypst', 'data/question_classification_train_sents_parsed.txt')
+    parsed_training_file = resource_filename('PSTreeKernels', 'data/question_classification_train_sents_parsed.txt')
     linearTrees_train = Utilities.getLinearTrees(parsed_training_file)
 
     #Add all training ST's to PST:

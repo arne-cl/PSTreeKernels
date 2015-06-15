@@ -75,11 +75,11 @@ def main():
     pst, M = train_question_classification(fine_grained_labels=False, normalized_pst=False)
 
     #Extract labels from sentences of the test set:
-    raw_test_file = resource_filename('pypst', 'data/question_classification_test.txt')
+    raw_test_file = resource_filename('PSTreeKernels', 'data/question_classification_test.txt')
     rawData_test = RawData(raw_test_file, 'question_classification_test_sents.txt', fine_grained=False)
 
     #Get linear trees from stanford parser test file:
-    parsed_test_file = resource_filename('pypst', 'data/question_classification_test_sents_parsed.txt')
+    parsed_test_file = resource_filename('PSTreeKernels', 'data/question_classification_test_sents_parsed.txt')
     linearTrees_test = Utilities.getLinearTrees(parsed_test_file)
 
     #Classify test sentences:
